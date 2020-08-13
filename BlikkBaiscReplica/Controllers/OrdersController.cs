@@ -13,17 +13,15 @@ namespace BlikkBaiscReplica.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly OrderRepository _repository;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrdersController(OrderRepository repository, UserManager<ApplicationUser> userManager)
+        public OrdersController(OrderRepository repository)
         {
             _repository = repository;
-            _userManager = userManager;
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetAllOrdersFromUser(string userId)
+        public async Task<IActionResult> GetAllOrdersFromUser()
         {
             return Ok(await _repository.GetAll());
         }
