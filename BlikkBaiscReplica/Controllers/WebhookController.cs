@@ -39,27 +39,27 @@ namespace BlikkBaiscReplica.Controllers
         {
             return Ok(await _repository.ListSubscriptions());
         }
-        [HttpGet("{ownerId}")]
-        public async Task<IActionResult> GetWebhook( string ownerId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetWebhook( int id)
         {
-            var result = await _repository.SearchSubscription(ownerId);
+            var result = await _repository.SearchSubscription(id);
             if (result == null) return NotFound();
             return Ok(result);
         }
 
-        [HttpPut("{ownerId}")]
-        public async Task<IActionResult> UpdateSubscription(WebhookSubscription model, string ownerId)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSubscription(int id, WebhookSubscription model)
         {
-            if (model.OwnerId != ownerId) return BadRequest();
+            if (model.Id != id) return BadRequest();
             var result = await _repository.UpdateSubscription(model);
             if (result == null) return BadRequest(); 
             return NoContent();
         }
 
-        [HttpDelete("{ownerId}")]
-        public async Task<IActionResult> Unsubscribe(string ownerId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Unsubscribe(int id)
         {
-           var result = await _repository.DeleteSubscription(ownerId);
+           var result = await _repository.DeleteSubscription(await _repository.SearchSubscription(id));
 
            if (result == null) return NotFound();
            return NoContent();

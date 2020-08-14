@@ -22,14 +22,12 @@ namespace BlikkBaiscReplica.Webhooks.Repositories
             return result > 0 ? model : null;
         }
 
-        public async Task<WebhookSubscription> DeleteSubscription(string ownerId)
+        public async Task<WebhookSubscription> DeleteSubscription(WebhookSubscription model)
         {
-            var webSub = await _context.WebhookSubscriptions.FirstOrDefaultAsync(x => x.OwnerId == ownerId);
-
-            if (webSub != null) _context.WebhookSubscriptions.Remove(webSub);
+            _context.WebhookSubscriptions.Remove(model);
             var result = await _context.SaveChangesAsync();
 
-            return result > 0 ? webSub : null;
+            return result > 0 ? model : null;
         }
 
         public async Task<List<WebhookSubscription>> ListSubscriptions()
@@ -47,10 +45,10 @@ namespace BlikkBaiscReplica.Webhooks.Repositories
             return webSubs;
         }
 
-        public async Task<WebhookSubscription> SearchSubscription(string ownerId)
+        public async Task<WebhookSubscription> SearchSubscription(int id)
         {
             var webSub = await _context.WebhookSubscriptions
-                .FirstOrDefaultAsync(x => x.OwnerId == ownerId);
+                .FirstOrDefaultAsync(x => x.Id == id);
             return webSub ?? null;
         }
 

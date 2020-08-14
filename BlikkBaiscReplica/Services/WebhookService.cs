@@ -5,6 +5,7 @@ using BlikkBaiscReplica.Webhooks.Repositories;
 using System.Threading.Tasks;
 using BlikkBaiscReplica.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace BlikkBaiscReplica.Services
 {
@@ -43,7 +44,12 @@ namespace BlikkBaiscReplica.Services
 
         private static StringContent CreateJsonPayload<T>(T entity)
         {
-            var serialized = JsonConvert.SerializeObject(entity);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            var serialized = JsonConvert.SerializeObject(entity, settings);
             var payload = new StringContent(serialized);
             return payload;
         }
