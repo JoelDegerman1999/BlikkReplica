@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using BlikkBaiscReplica.Helpers;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
-using BlikkBaiscReplica.RestHooks;
+using BlikkBaiscReplica.Services;
+using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +16,12 @@ namespace BlikkBaiscReplica.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly OrderRepository _repository;
-        private readonly IWebhookRepository _webhookRepository;
+        private readonly IWebhookService _webhookService;
 
-        public OrdersController(OrderRepository repository, IWebhookRepository webhookRepository)
+        public OrdersController(OrderRepository repository, IWebhookService webhookService)
         {
             _repository = repository;
-            _webhookRepository = webhookRepository;
+            _webhookService = webhookService;
         }
 
         [HttpGet]
@@ -46,6 +48,7 @@ namespace BlikkBaiscReplica.Controllers
         {
             var result = await _repository.Add(order);
             if (result == null) return BadRequest();
+            var succeeded = await _webhookService.SendHookToSubscribed<Order>(WebhookConstants.OrderCreated, result);
 
             return CreatedAtAction(nameof(Get), new {id = order.Id}, result);
         }

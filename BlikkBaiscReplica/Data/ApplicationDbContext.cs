@@ -1,5 +1,5 @@
 ﻿using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.RestHooks;
+using BlikkBaiscReplica.Webhooks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

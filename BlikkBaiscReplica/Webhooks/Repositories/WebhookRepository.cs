@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BlikkBaiscReplica.Data;
-using BlikkBaiscReplica.RestHooks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBaiscReplica.RestHooks
+namespace BlikkBaiscReplica.Webhooks.Repositories
 {
     public class WebhookRepository : IWebhookRepository
     {
@@ -39,6 +35,15 @@ namespace BlikkBaiscReplica.RestHooks
         public async Task<List<WebhookSubscription>> ListSubscriptions()
         {
             var webSubs = await _context.WebhookSubscriptions.ToListAsync();
+            return webSubs;
+        }
+
+        public async Task<List<WebhookSubscription>> ListSubscriptions(string eventName)
+        {
+            var webSubs = await _context.WebhookSubscriptions
+                .Where(x => x.EventName == eventName)
+                .ToListAsync();
+
             return webSubs;
         }
 

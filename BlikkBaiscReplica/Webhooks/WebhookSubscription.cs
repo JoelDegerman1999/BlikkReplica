@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BlikkBaiscReplica.RestHooks
+namespace BlikkBaiscReplica.Webhooks
 {
     public class WebhookSubscription
     {
@@ -13,6 +9,7 @@ namespace BlikkBaiscReplica.RestHooks
         public string EventName { get; set; }
         public string TargetUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } 
 
     }
 

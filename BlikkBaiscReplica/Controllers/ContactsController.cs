@@ -2,9 +2,11 @@
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using BlikkBaiscReplica.Helpers;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
-using BlikkBaiscReplica.RestHooks;
+using BlikkBaiscReplica.Services;
+using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,12 +20,12 @@ namespace BlikkBaiscReplica.Controllers
     public class ContactsController : ControllerBase
     {
         private readonly ContactRepository _repository;
-        private readonly IWebhookRepository _webhookRepository;
+        private readonly IWebhookService _webhookService;
 
-        public ContactsController(ContactRepository repository, IWebhookRepository webhookRepository)
+        public ContactsController(ContactRepository repository, IWebhookService webhookService)
         {
             _repository = repository;
-            _webhookRepository = webhookRepository;
+            _webhookService = webhookService;
         }
 
         /// <summary>
@@ -55,14 +57,7 @@ namespace BlikkBaiscReplica.Controllers
         {
             var result = await _repository.Add(contact);
             if (result == null) return BadRequest();
-
-            var webSub = await _webhookRepository.SearchSubscription("contact_created");
-            if (webSub != null)
-            {
-                var client = new HttpClient();
-                await client.PostAsync(webSub.TargetUrl, new StringContent(JsonConvert.SerializeObject(result)));
-            }
-
+            var succeeded = await _webhookService.SendHookToSubscribed<Contact>(WebhookConstants.ContactCreated, result);
             return CreatedAtAction(nameof(Get), new {id = contact.Id}, contact);
         }
 

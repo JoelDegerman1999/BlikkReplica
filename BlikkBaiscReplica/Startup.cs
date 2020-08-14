@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using BlikkBaiscReplica.Data;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
-using BlikkBaiscReplica.RestHooks;
 using BlikkBaiscReplica.Services;
+using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,16 +59,17 @@ namespace BlikkBaiscReplica
             });
 
             services.AddSwaggerGen();
+            services.AddHttpClient();
+
             services.AddScoped<ContactRepository>();
             services.AddScoped<OrderRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWebhookRepository, WebhookRepository>();
+            services.AddScoped<IWebhookService, WebhookService>();
 
-
-            services.AddControllers().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            } );
+            services.AddControllers()
+                .AddNewtonsoftJson(
+                    options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

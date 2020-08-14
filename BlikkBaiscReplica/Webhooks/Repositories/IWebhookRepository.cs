@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlikkBaiscReplica.RestHooks;
 
-namespace BlikkBaiscReplica.RestHooks
+namespace BlikkBaiscReplica.Webhooks.Repositories
 {
     public interface IWebhookRepository
     {
@@ -14,5 +10,6 @@ namespace BlikkBaiscReplica.RestHooks
         Task<WebhookSubscription> SearchSubscription(string ownerId);
         Task<WebhookSubscription> UpdateSubscription(WebhookSubscription model);
         Task<List<WebhookSubscription>> ListSubscriptions();
+        Task<List<WebhookSubscription>> ListSubscriptions(string eventName);
     }
 }
