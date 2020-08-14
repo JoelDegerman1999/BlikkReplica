@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlikkBaiscReplica.Data;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
+using BlikkBaiscReplica.RestHooks;
 using BlikkBaiscReplica.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -61,7 +62,7 @@ namespace BlikkBaiscReplica
             services.AddScoped<ContactRepository>();
             services.AddScoped<OrderRepository>();
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<IWebhookRepository, WebhookRepository>();
 
 
             services.AddControllers().AddNewtonsoftJson(options =>

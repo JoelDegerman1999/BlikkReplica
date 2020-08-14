@@ -1,4 +1,5 @@
 ﻿using BlikkBaiscReplica.Models;
+using BlikkBaiscReplica.RestHooks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,5 +28,6 @@ namespace BlikkBaiscReplica.Data
 
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<WebhookSubscription> WebhookSubscriptions { get; set; }
     }
 }

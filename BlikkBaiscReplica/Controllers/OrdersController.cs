@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
+using BlikkBaiscReplica.RestHooks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace BlikkBaiscReplica.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly OrderRepository _repository;
+        private readonly IWebhookRepository _webhookRepository;
 
-        public OrdersController(OrderRepository repository)
+        public OrdersController(OrderRepository repository, IWebhookRepository webhookRepository)
         {
             _repository = repository;
+            _webhookRepository = webhookRepository;
         }
 
         [HttpGet]
