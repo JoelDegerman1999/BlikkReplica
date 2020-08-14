@@ -48,7 +48,7 @@ namespace BlikkBaiscReplica.Controllers
         {
             var result = await _repository.Add(order);
             if (result == null) return BadRequest();
-            var succeeded = await _webhookService.SendHookToSubscribed<Order>(WebhookConstants.OrderCreated, result);
+            var succeeded = await _webhookService.SendHookToSubscribed(WebhookConstants.OrderCreated, result);
 
             return CreatedAtAction(nameof(Get), new {id = order.Id}, result);
         }
@@ -64,6 +64,7 @@ namespace BlikkBaiscReplica.Controllers
 
             var result = await _repository.Update(order);
             if (result == null) return NotFound();
+            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderUpdated, result);
             return NoContent();
         }
 

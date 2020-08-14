@@ -72,6 +72,7 @@ namespace BlikkBaiscReplica.Controllers
             var result = await _repository.Update(contact);
 
             if (result == null) return NotFound();
+            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactUpdated, result);
             return NoContent();
         }
 

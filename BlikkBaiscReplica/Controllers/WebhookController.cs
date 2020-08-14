@@ -28,41 +28,56 @@ namespace BlikkBaiscReplica.Controllers
         [HttpPost]
         public async Task<IActionResult> Subscribe(WebhookSubscription model)
         {
-            if (!ModelState.IsValid) return StatusCode(StatusCodes.Status409Conflict);
-            var ownerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            model.OwnerId = ownerId;
+            if (!ModelState.IsValid) return BadRequest();
+
+            model.OwnerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await _repository.CreateSubscription(model);
+
             return CreatedAtAction(nameof(Subscribe), result);
         }
+
         [HttpGet]
         public async Task<IActionResult> ListWebhooks()
         {
             return Ok(await _repository.ListSubscriptions());
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWebhook( int id)
+        public async Task<IActionResult> GetWebhook(int id)
         {
             var result = await _repository.SearchSubscription(id);
             if (result == null) return NotFound();
+
+            if (result.OwnerId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
+
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubscription(int id, WebhookSubscription model)
         {
+            var webSub = await _repository.SearchSubscription(id);
+            if (webSub.OwnerId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
+
             if (model.Id != id) return BadRequest();
             var result = await _repository.UpdateSubscription(model);
-            if (result == null) return BadRequest(); 
+            if (result == null) return BadRequest();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Unsubscribe(int id)
         {
-           var result = await _repository.DeleteSubscription(await _repository.SearchSubscription(id));
+            var webSub = await _repository.SearchSubscription(id);
+            if (webSub == null) return NotFound();
 
-           if (result == null) return NotFound();
-           return NoContent();
+            if (webSub.OwnerId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
+
+            var result = await _repository.DeleteSubscription(webSub);
+
+            if (result == null) return BadRequest();
+
+            return NoContent();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace BlikkBaiscReplica.Services
                 try
                 {
                     var client = _clientFactory.CreateClient();
-                    var result = await client.PostAsync(sub.TargetUrl, payload);
+                    await client.PostAsync(sub.TargetUrl, payload);
                     
                 }
                 catch (Exception e)
