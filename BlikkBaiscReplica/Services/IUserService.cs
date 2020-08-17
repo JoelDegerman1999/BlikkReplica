@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using BlikkBasicReplica.Models.Auth;
+using BlikkBasicReplica.API.Models.Auth;
 
-namespace BlikkBasicReplica.Services
+namespace BlikkBasicReplica.API.Services
 {
     public interface IUserService
     {

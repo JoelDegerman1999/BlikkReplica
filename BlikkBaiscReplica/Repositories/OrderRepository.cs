@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlikkBasicReplica.Data;
-using BlikkBasicReplica.Models;
+using BlikkBasicReplica.API.Data;
+using BlikkBasicReplica.API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBasicReplica.Repositories
+namespace BlikkBasicReplica.API.Repositories
 {
     public class OrderRepository: IRepository<Order>
     {

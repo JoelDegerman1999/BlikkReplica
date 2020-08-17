@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BlikkBasicReplica.API.Models;
+using BlikkBasicReplica.API.Repositories;
 using BlikkBasicReplica.Helpers;
-using BlikkBasicReplica.Models;
-using BlikkBasicReplica.Repositories;
-using BlikkBasicReplica.Webhooks.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using IWebhookService = BlikkBasicReplica.API.Services.IWebhookService;
 
-namespace BlikkBasicReplica.Controllers
+namespace BlikkBasicReplica.API.Controllers
 {
     [Authorize]
     [ApiController]

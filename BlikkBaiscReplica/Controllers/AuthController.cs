@@ -1,16 +1,15 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using BlikkBasicReplica.Models;
-using BlikkBasicReplica.Models.Auth;
-using BlikkBasicReplica.Models.ViewModels;
-using BlikkBasicReplica.Services;
+using BlikkBasicReplica.API.Models;
+using BlikkBasicReplica.API.Models.Auth;
+using BlikkBasicReplica.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBasicReplica.Controllers
+namespace BlikkBasicReplica.API.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -50,8 +49,7 @@ namespace BlikkBasicReplica.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await _userManager.Users.Include(q => q.Contacts)
                 .Include(q => q.Orders).FirstOrDefaultAsync(q => q.Id == userId);
-            var dto = _mapper.Map<ApplicationUserVm>(result);
-            return Ok(dto);
+            return Ok(result);
         }
     }
 }

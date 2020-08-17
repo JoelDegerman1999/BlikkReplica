@@ -1,11 +1,10 @@
 using System.Text;
 using AutoMapper;
-using BlikkBasicReplica.Data;
-using BlikkBasicReplica.Models;
-using BlikkBasicReplica.Repositories;
-using BlikkBasicReplica.Services;
-using BlikkBasicReplica.Webhooks.Repositories;
-using BlikkBasicReplica.Webhooks.Services;
+using BlikkBasicReplica.API.Data;
+using BlikkBasicReplica.API.Models;
+using BlikkBasicReplica.API.Repositories;
+using BlikkBasicReplica.API.Services;
+using BlikkBasicReplica.API.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using IWebhookService = BlikkBasicReplica.API.Services.IWebhookService;
+using WebhookService = BlikkBasicReplica.API.Services.WebhookService;
 
 
 namespace BlikkBaiscReplica

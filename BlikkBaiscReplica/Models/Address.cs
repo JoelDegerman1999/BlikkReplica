@@ -1,7 +1,10 @@
-﻿namespace BlikkBasicReplica.Models
+﻿using Newtonsoft.Json;
+
+namespace BlikkBasicReplica.API.Models
 {
     public class Address
     {
+        [JsonIgnore]
         public int Id { get; set; }
         public string StreetAddress { get; set; }
         public string PostalCode { get; set; }

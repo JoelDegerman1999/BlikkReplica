@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿
 
-namespace BlikkBasicReplica.Models
+using Newtonsoft.Json;
+
+namespace BlikkBasicReplica.API.Models
 {
     public class Contact
     {

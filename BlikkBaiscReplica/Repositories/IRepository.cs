@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlikkBasicReplica.Repositories
+namespace BlikkBasicReplica.API.Repositories
 {
     public interface IRepository<T> where T: class
     {

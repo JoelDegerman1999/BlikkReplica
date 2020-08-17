@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace BlikkBasicReplica.Models
+namespace BlikkBasicReplica.API.Models
 {
     public class Order
     {

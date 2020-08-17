@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BlikkBasicReplica.API.Models;
+using BlikkBasicReplica.API.Repositories;
+using BlikkBasicReplica.API.Services;
 using BlikkBasicReplica.Helpers;
-using BlikkBasicReplica.Models;
-using BlikkBasicReplica.Repositories;
-using BlikkBasicReplica.Webhooks.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlikkBasicReplica.Controllers
+namespace BlikkBasicReplica.API.Controllers
 {
     [Authorize]
     [ApiController]
@@ -30,9 +30,9 @@ namespace BlikkBasicReplica.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var contacts = await _repository.GetAll();
-            contacts = contacts.Where(q => q.ApplicationUserId == userId).ToList();
-            return Ok(contacts);
+            var orders = await _repository.GetAll();
+            orders = orders.Where(q => q.ApplicationUserId == userId).ToList();
+            return Ok(orders);
         }
 
         [HttpGet("{id}")]

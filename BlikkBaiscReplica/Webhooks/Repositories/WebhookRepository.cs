@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlikkBasicReplica.Data;
-using BlikkBasicReplica.Webhooks.Models;
+using BlikkBasicReplica.API.Data;
+using BlikkBasicReplica.API.Webhooks.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBasicReplica.Webhooks.Repositories
+namespace BlikkBasicReplica.API.Webhooks.Repositories
 {
     public class WebhookRepository : IWebhookRepository
     {

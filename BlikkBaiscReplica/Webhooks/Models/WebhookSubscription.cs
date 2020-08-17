@@ -1,4 +1,4 @@
-﻿namespace BlikkBasicReplica.Webhooks.Models
+﻿namespace BlikkBasicReplica.API.Webhooks.Models
 {
     public class WebhookSubscription
     {

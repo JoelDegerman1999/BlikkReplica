@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using BlikkBasicReplica.Models;
-using BlikkBasicReplica.Models.ViewModels;
 
-namespace BlikkBasicReplica.Helpers
+namespace BlikkBasicReplica.API.Helpers
 {
     public class Mappings : Profile
     {
         public Mappings()
         {
-            CreateMap<ApplicationUser, ApplicationUserVm>().ReverseMap();
         }
     }
 }

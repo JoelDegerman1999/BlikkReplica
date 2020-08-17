@@ -1,4 +1,4 @@
-﻿namespace BlikkBasicReplica.Models.Auth
+﻿namespace BlikkBasicReplica.API.Models.Auth
 {
     public class LoginModel
     {

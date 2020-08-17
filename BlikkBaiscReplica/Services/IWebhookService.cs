@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BlikkBasicReplica.Webhooks.Services
+namespace BlikkBasicReplica.API.Services
 {
     public interface IWebhookService
     {

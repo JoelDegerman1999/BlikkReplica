@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BlikkBasicReplica.Webhooks.Repositories;
+using BlikkBasicReplica.API.Webhooks.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace BlikkBasicReplica.Webhooks.Services
+namespace BlikkBasicReplica.API.Services
 {
-    public class WebhookService : IWebhookService
+    public class WebhookService : API.Services.IWebhookService
     {
         private readonly IWebhookRepository _repository;
         private readonly IHttpClientFactory _clientFactory;
