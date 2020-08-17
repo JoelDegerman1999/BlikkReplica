@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BlikkBaiscReplica.Services;
 using BlikkBaiscReplica.Webhooks;
 using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,12 @@ namespace BlikkBaiscReplica.Controllers
     public class WebhookController : ControllerBase
     {
         private readonly IWebhookRepository _repository;
+        private readonly IWebhookService _webhookService;
 
-        public WebhookController(IWebhookRepository repository)
+        public WebhookController(IWebhookRepository repository, IWebhookService webhookService)
         {
             _repository = repository;
+            _webhookService = webhookService;
         }
 
         [HttpPost]
@@ -27,7 +30,6 @@ namespace BlikkBaiscReplica.Controllers
 
             model.OwnerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await _repository.CreateSubscription(model);
-
             return CreatedAtAction(nameof(Subscribe), result);
         }
 
@@ -44,15 +46,15 @@ namespace BlikkBaiscReplica.Controllers
         public async Task<IActionResult> GetWebhook(int id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             var result = await _repository.SearchSubscription(id);
             if (result == null) return NotFound();
-
             if (result.OwnerId != userId) return Unauthorized();
 
             return Ok(result);
         }
 
-        //Denna kanske inte ens behövs
+        //Denna kanske inte behövs
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubscription(int id, WebhookSubscription model)
         {

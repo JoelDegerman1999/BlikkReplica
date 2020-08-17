@@ -1,4 +1,5 @@
 using System.Text;
+using AutoMapper;
 using BlikkBaiscReplica.Data;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+
 
 namespace BlikkBaiscReplica
 {
@@ -52,6 +54,7 @@ namespace BlikkBaiscReplica
 
             services.AddSwaggerGen();
             services.AddHttpClient();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<ContactRepository>();
             services.AddScoped<OrderRepository>();

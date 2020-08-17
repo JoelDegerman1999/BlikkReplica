@@ -16,7 +16,6 @@ namespace BlikkBaiscReplica.Migrations
                     OwnerId = table.Column<string>(nullable: true),
                     EventName = table.Column<string>(nullable: true),
                     TargetUrl = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

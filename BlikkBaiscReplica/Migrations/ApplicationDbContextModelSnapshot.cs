@@ -175,9 +175,6 @@ namespace BlikkBaiscReplica.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
@@ -186,9 +183,6 @@ namespace BlikkBaiscReplica.Migrations
 
                     b.Property<string>("TargetUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

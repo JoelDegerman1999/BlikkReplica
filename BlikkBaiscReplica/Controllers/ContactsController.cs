@@ -76,7 +76,7 @@ namespace BlikkBaiscReplica.Controllers
 
             if (result == null) return BadRequest();
 
-            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactUpdated, result, user.Id);
+            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactCreated, result, user.Id);
             return CreatedAtAction(nameof(Get), new {id = contact.Id}, contact);
         }
 

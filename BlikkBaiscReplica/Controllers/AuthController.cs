@@ -1,11 +1,14 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Models.Auth;
+using BlikkBaiscReplica.Models.ViewModels;
 using BlikkBaiscReplica.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlikkBaiscReplica.Controllers
 {
@@ -16,11 +19,13 @@ namespace BlikkBaiscReplica.Controllers
     {
         private readonly IUserService _service;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMapper _mapper;
 
-        public AuthController(IUserService service, UserManager<ApplicationUser> userManager)
+        public AuthController(IUserService service, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _service = service;
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -42,8 +47,11 @@ namespace BlikkBaiscReplica.Controllers
         [HttpGet("me")]
         public async Task<IActionResult> Users()
         {
-            var result = await _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-           return Ok(result);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var result = await _userManager.Users.Include(q => q.Contacts)
+                .Include(q => q.Orders).FirstOrDefaultAsync(q => q.Id == userId);
+            var dto = _mapper.Map<ApplicationUserVm>(result);
+            return Ok(dto);
         }
     }
 }
