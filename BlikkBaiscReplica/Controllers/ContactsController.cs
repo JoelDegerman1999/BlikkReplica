@@ -1,20 +1,13 @@
 ﻿using System.Linq;
-using System.Net.Http;
-using System.Reflection.Metadata;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using BlikkBaiscReplica.Helpers;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
 using BlikkBaiscReplica.Services;
-using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
 namespace BlikkBaiscReplica.Controllers
 {

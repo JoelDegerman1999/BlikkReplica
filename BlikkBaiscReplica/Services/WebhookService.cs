@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Claims;
 using BlikkBaiscReplica.Webhooks.Repositories;
 using System.Threading.Tasks;
-using BlikkBaiscReplica.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 

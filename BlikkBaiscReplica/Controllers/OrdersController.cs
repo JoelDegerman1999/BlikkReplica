@@ -5,9 +5,7 @@ using BlikkBaiscReplica.Helpers;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
 using BlikkBaiscReplica.Services;
-using BlikkBaiscReplica.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlikkBaiscReplica.Controllers
