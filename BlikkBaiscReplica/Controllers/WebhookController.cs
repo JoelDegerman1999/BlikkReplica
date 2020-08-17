@@ -39,20 +39,25 @@ namespace BlikkBaiscReplica.Controllers
         [HttpGet]
         public async Task<IActionResult> ListWebhooks()
         {
-            return Ok(await _repository.ListSubscriptions());
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var webHooks = await _repository.ListSubscriptions();
+            webHooks = webHooks.Where(q => q.OwnerId == userId).ToList();
+            return Ok(webHooks);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWebhook(int id)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await _repository.SearchSubscription(id);
             if (result == null) return NotFound();
 
-            if (result.OwnerId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
+            if (result.OwnerId != userId) return Unauthorized();
 
             return Ok(result);
         }
 
+        //Denna kanske inte ens behövs
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubscription(int id, WebhookSubscription model)
         {
@@ -73,9 +78,7 @@ namespace BlikkBaiscReplica.Controllers
 
             if (webSub.OwnerId != User.FindFirst(ClaimTypes.NameIdentifier).Value) return Unauthorized();
 
-            var result = await _repository.DeleteSubscription(webSub);
-
-            if (result == null) return BadRequest();
+            await _repository.DeleteSubscription(webSub);
 
             return NoContent();
         }

@@ -52,9 +52,8 @@ namespace BlikkBaiscReplica.Repositories
             return result > 0 ? entity : null;
         }
 
-        public async Task<Order> Delete(int id)
+        public async Task<Order> Delete(Order order)
         {
-            var order = await Get(id);
             _context.Orders.Remove(order);
             var result = await _context.SaveChangesAsync();
 

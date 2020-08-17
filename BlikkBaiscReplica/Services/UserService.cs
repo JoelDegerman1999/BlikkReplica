@@ -87,6 +87,7 @@ namespace BlikkBaiscReplica.Services
             return new UserManagerResponse()
             {
                 Message = "Logged in successfully",
+                UserId = user.Id,
                 Token = tokenString,
                 Success = true
             };

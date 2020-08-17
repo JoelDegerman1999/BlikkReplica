@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using BlikkBaiscReplica.Helpers;
 using BlikkBaiscReplica.Models;
 using BlikkBaiscReplica.Repositories;
@@ -28,7 +30,11 @@ namespace BlikkBaiscReplica.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetAllOrdersFromUser()
         {
-            return Ok(await _repository.GetAll());
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var contacts = await _repository.GetAll();
+            contacts = contacts.Where(q => q.ApplicationUserId == userId).ToList();
+            return Ok(contacts);
         }
 
         [HttpGet("{id}")]
@@ -36,8 +42,12 @@ namespace BlikkBaiscReplica.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> Get(int id)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             var order = await _repository.Get(id);
             if (order == null) return NotFound();
+            if (order.ApplicationUserId != userId) return Unauthorized();
+
             return Ok(order);
         }
 
@@ -46,9 +56,11 @@ namespace BlikkBaiscReplica.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> Add(Order order)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            order.ApplicationUserId = userId;
             var result = await _repository.Add(order);
             if (result == null) return BadRequest();
-            var succeeded = await _webhookService.SendHookToSubscribed(WebhookConstants.OrderCreated, result);
+            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderCreated, result, userId);
 
             return CreatedAtAction(nameof(Get), new {id = order.Id}, result);
         }
@@ -59,12 +71,16 @@ namespace BlikkBaiscReplica.Controllers
         [ProducesResponseType(204)]
         public async Task<IActionResult> Update(Order order, int id)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var entity = await _repository.Get(id);
 
             if (id != order.Id) return BadRequest();
+            if (entity.ApplicationUserId != userId) return Unauthorized();
 
             var result = await _repository.Update(order);
-            if (result == null) return NotFound();
-            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderUpdated, result);
+            if (result == null) return BadRequest();
+
+            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderUpdated, result, userId);
             return NoContent();
         }
 
@@ -74,8 +90,12 @@ namespace BlikkBaiscReplica.Controllers
         [ProducesResponseType(204)]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _repository.Delete(id);
-            if (result == null) return NotFound();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var order = await _repository.Get(id);
+            if (order == null) return NotFound();
+            if (order.ApplicationUserId != userId) return Unauthorized();
+            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderDeleted, order, userId);
+            await _repository.Delete(order);
             return NoContent();
         }
     }

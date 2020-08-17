@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using BlikkBaiscReplica.Webhooks.Repositories;
@@ -19,19 +20,24 @@ namespace BlikkBaiscReplica.Services
             _repository = repository;
             _clientFactory = clientFactory;
         }
-        public async Task<bool> SendHookToSubscribed<T>(string eventName, T entity)
-        {
 
-            var payload = CreateJsonPayload<T>(entity);
+        public async Task<bool> SendHookToSubscribed<T>(string eventName, T entity, string userId)
+        {
+            var payload = CreateJsonPayload(entity);
 
             var subs = await _repository.ListSubscriptions(eventName);
+
+            //Filtrerar bort subscriptions som inte tillhör användaren
+            if (subs.Count > 0)
+            {
+                subs = subs.Where(q => q.OwnerId == userId).ToList();
+            }
             foreach (var sub in subs)
             {
                 try
                 {
                     var client = _clientFactory.CreateClient();
                     await client.PostAsync(sub.TargetUrl, payload);
-                    
                 }
                 catch (Exception e)
                 {
@@ -39,6 +45,7 @@ namespace BlikkBaiscReplica.Services
                     throw;
                 }
             }
+
             return true;
         }
 

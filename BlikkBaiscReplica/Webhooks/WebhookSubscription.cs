@@ -9,7 +9,6 @@ namespace BlikkBaiscReplica.Webhooks
         public string EventName { get; set; }
         public string TargetUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } 
 
     }
 

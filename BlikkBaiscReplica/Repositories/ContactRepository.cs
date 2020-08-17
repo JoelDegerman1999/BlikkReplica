@@ -54,9 +54,8 @@ namespace BlikkBaiscReplica.Repositories
             return result > 0 ? entity : null;
         }
 
-        public async Task<Contact> Delete(int id)
+        public async Task<Contact> Delete(Contact contact)
         {
-            var contact = await Get(id);
             _context.Contacts.Remove(contact);
             var result = await _context.SaveChangesAsync();
 
