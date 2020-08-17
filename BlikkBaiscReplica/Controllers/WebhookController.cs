@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BlikkBaiscReplica.Services;
-using BlikkBaiscReplica.Webhooks;
-using BlikkBaiscReplica.Webhooks.Repositories;
+using BlikkBasicReplica.Webhooks.Models;
+using BlikkBasicReplica.Webhooks.Repositories;
+using BlikkBasicReplica.Webhooks.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlikkBaiscReplica.Controllers
+namespace BlikkBasicReplica.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]

@@ -1,10 +1,11 @@
 using System.Text;
 using AutoMapper;
-using BlikkBaiscReplica.Data;
-using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.Repositories;
-using BlikkBaiscReplica.Services;
-using BlikkBaiscReplica.Webhooks.Repositories;
+using BlikkBasicReplica.Data;
+using BlikkBasicReplica.Models;
+using BlikkBasicReplica.Repositories;
+using BlikkBasicReplica.Services;
+using BlikkBasicReplica.Webhooks.Repositories;
+using BlikkBasicReplica.Webhooks.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

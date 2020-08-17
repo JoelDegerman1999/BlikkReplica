@@ -1,16 +1,16 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.Models.Auth;
-using BlikkBaiscReplica.Models.ViewModels;
-using BlikkBaiscReplica.Services;
+using BlikkBasicReplica.Models;
+using BlikkBasicReplica.Models.Auth;
+using BlikkBasicReplica.Models.ViewModels;
+using BlikkBasicReplica.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBaiscReplica.Controllers
+namespace BlikkBasicReplica.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]

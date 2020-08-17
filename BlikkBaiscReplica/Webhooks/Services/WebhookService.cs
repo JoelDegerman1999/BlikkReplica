@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-using BlikkBaiscReplica.Webhooks.Repositories;
 using System.Threading.Tasks;
+using BlikkBasicReplica.Webhooks.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace BlikkBaiscReplica.Services
+namespace BlikkBasicReplica.Webhooks.Services
 {
     public class WebhookService : IWebhookService
     {

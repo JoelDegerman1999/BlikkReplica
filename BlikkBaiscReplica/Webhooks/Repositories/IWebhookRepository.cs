@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlikkBasicReplica.Webhooks.Models;
 
-namespace BlikkBaiscReplica.Webhooks.Repositories
+namespace BlikkBasicReplica.Webhooks.Repositories
 {
     public interface IWebhookRepository
     {

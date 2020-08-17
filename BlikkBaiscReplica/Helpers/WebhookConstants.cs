@@ -1,4 +1,4 @@
-﻿namespace BlikkBaiscReplica.Helpers
+﻿namespace BlikkBasicReplica.Helpers
 {
     public static class WebhookConstants
     {

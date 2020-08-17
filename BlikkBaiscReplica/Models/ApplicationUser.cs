@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace BlikkBaiscReplica.Models
+namespace BlikkBasicReplica.Models
 {
     public class ApplicationUser : IdentityUser
     {

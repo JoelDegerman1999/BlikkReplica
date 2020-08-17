@@ -1,4 +1,4 @@
-﻿namespace BlikkBaiscReplica.Models.Auth
+﻿namespace BlikkBasicReplica.Models.Auth
 {
     public class UserManagerResponse
     {

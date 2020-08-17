@@ -3,13 +3,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.Models.Auth;
+using BlikkBasicReplica.Models;
+using BlikkBasicReplica.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BlikkBaiscReplica.Services
+namespace BlikkBasicReplica.Services
 {
     public class UserService : IUserService
     {

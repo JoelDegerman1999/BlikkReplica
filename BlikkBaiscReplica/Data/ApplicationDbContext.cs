@@ -1,9 +1,9 @@
-﻿using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.Webhooks;
+﻿using BlikkBasicReplica.Models;
+using BlikkBasicReplica.Webhooks.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBaiscReplica.Data
+namespace BlikkBasicReplica.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

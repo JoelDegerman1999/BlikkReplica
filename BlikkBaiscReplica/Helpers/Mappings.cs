@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using BlikkBaiscReplica.Models;
-using BlikkBaiscReplica.Models.ViewModels;
+﻿using AutoMapper;
+using BlikkBasicReplica.Models;
+using BlikkBasicReplica.Models.ViewModels;
 
-namespace BlikkBaiscReplica.Helpers
+namespace BlikkBasicReplica.Helpers
 {
     public class Mappings : Profile
     {

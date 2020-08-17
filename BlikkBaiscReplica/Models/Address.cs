@@ -1,4 +1,4 @@
-﻿namespace BlikkBaiscReplica.Models
+﻿namespace BlikkBasicReplica.Models
 {
     public class Address
     {

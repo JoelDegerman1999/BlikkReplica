@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using BlikkBaiscReplica.Data;
-using BlikkBaiscReplica.Models;
+using BlikkBasicReplica.Data;
+using BlikkBasicReplica.Models;
 using Newtonsoft.Json;
 
-namespace BlikkBaiscReplica.Helpers
+namespace BlikkBasicReplica.Helpers
 {
     public static class Seeder
     {

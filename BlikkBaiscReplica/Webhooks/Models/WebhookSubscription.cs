@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlikkBaiscReplica.Webhooks
+﻿namespace BlikkBasicReplica.Webhooks.Models
 {
     public class WebhookSubscription
     {
