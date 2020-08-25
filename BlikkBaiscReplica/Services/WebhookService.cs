@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BlikkBasicReplica.API.Webhooks.Repositories;
+using BlikkBasicReplica.API.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace BlikkBasicReplica.API.Services
 {
-    public class WebhookService : API.Services.IWebhookService
+    public class WebhookService : IWebhookService
     {
         private readonly IWebhookRepository _repository;
         private readonly IHttpClientFactory _clientFactory;
@@ -19,7 +19,7 @@ namespace BlikkBasicReplica.API.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<bool> SendHookToSubscribed<T>(string eventName, T entity, string userId)
+        public async Task<bool> SendHookToSubscribedHooks<T>(string eventName, T entity, string userId)
         {
             var subs = await _repository.ListSubscriptions(eventName);
 
@@ -43,6 +43,8 @@ namespace BlikkBasicReplica.API.Services
                         success = await client.PostAsync(sub.TargetUrl, payload);
                     }
                 }
+
+
                 catch (Exception e)
                 {
                     Console.WriteLine(e);

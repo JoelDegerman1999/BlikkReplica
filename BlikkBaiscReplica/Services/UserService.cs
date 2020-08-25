@@ -77,7 +77,7 @@ namespace BlikkBasicReplica.API.Services
                 _configuration["AuthSettings:Audience"],
                 claims,
                 DateTime.Now,
-                DateTime.Now.AddHours(2),
+                DateTime.Now.AddDays(2),
                 signingCredentials
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);

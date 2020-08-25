@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BlikkBasicReplica.API.Models
 {
+    [Owned]
     public class Address
     {
-        [JsonIgnore]
-        public int Id { get; set; }
         public string StreetAddress { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }

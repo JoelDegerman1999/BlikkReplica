@@ -4,6 +4,6 @@ namespace BlikkBasicReplica.API.Services
 {
     public interface IWebhookService
     {
-        Task<bool> SendHookToSubscribed<T>(string eventName, T entity, string userId);
+        Task<bool> SendHookToSubscribedHooks<T>(string eventName, T entity, string userId);
     }
 }
