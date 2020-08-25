@@ -44,7 +44,6 @@ namespace BlikkBasicReplica.API.Services
                     }
                 }
 
-
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
