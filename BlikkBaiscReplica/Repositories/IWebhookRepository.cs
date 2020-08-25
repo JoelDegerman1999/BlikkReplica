@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using BlikkBasicReplica.API.Webhooks.Models;
 
-namespace BlikkBasicReplica.API.Webhooks.Repositories
+namespace BlikkBasicReplica.API.Repositories
 {
     public interface IWebhookRepository
     {

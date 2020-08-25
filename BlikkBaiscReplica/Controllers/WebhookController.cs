@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BlikkBasicReplica.API.Repositories;
+using BlikkBasicReplica.API.Services;
 using BlikkBasicReplica.API.Webhooks.Models;
-using BlikkBasicReplica.API.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IWebhookService = BlikkBasicReplica.API.Services.IWebhookService;
 
 namespace BlikkBasicReplica.API.Controllers
 {
@@ -15,12 +15,10 @@ namespace BlikkBasicReplica.API.Controllers
     public class WebhookController : ControllerBase
     {
         private readonly IWebhookRepository _repository;
-        private readonly IWebhookService _webhookService;
 
         public WebhookController(IWebhookRepository repository, IWebhookService webhookService)
         {
             _repository = repository;
-            _webhookService = webhookService;
         }
 
         [HttpPost]
@@ -54,7 +52,6 @@ namespace BlikkBasicReplica.API.Controllers
             return Ok(result);
         }
 
-        //Denna kanske inte behövs
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubscription(int id, WebhookSubscription model)
         {

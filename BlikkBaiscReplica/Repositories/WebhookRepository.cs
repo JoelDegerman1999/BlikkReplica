@@ -5,7 +5,7 @@ using BlikkBasicReplica.API.Data;
 using BlikkBasicReplica.API.Webhooks.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlikkBasicReplica.API.Webhooks.Repositories
+namespace BlikkBasicReplica.API.Repositories
 {
     public class WebhookRepository : IWebhookRepository
     {

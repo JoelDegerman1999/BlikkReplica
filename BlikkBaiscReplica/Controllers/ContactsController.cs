@@ -76,7 +76,7 @@ namespace BlikkBasicReplica.API.Controllers
 
             if (result == null) return BadRequest();
 
-            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactCreated, result, user.Id);
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.ContactCreated, result, user.Id);
             return CreatedAtAction(nameof(Get), new {id = contact.Id}, contact);
         }
 
@@ -97,7 +97,7 @@ namespace BlikkBasicReplica.API.Controllers
 
             if (result == null) return BadRequest();
 
-            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactUpdated, result, userId);
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.ContactUpdated, result, userId);
             return NoContent();
         }
 
@@ -113,7 +113,7 @@ namespace BlikkBasicReplica.API.Controllers
             if (contact == null) return NotFound();
             if (contact.ApplicationUserId != userId) return Unauthorized();
 
-            await _webhookService.SendHookToSubscribed(WebhookConstants.ContactDeleted, contact, userId);
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.ContactDeleted, contact, userId);
             await _repository.Delete(contact);
             return NoContent();
         }

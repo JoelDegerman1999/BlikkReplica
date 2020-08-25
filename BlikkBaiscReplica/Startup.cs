@@ -4,7 +4,6 @@ using BlikkBasicReplica.API.Data;
 using BlikkBasicReplica.API.Models;
 using BlikkBasicReplica.API.Repositories;
 using BlikkBasicReplica.API.Services;
-using BlikkBasicReplica.API.Webhooks.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

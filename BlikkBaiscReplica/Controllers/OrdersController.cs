@@ -58,7 +58,8 @@ namespace BlikkBasicReplica.API.Controllers
             order.ApplicationUserId = userId;
             var result = await _repository.Add(order);
             if (result == null) return BadRequest();
-            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderCreated, result, userId);
+
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.OrderCreated, result, userId);
 
             return CreatedAtAction(nameof(Get), new {id = order.Id}, result);
         }
@@ -78,7 +79,7 @@ namespace BlikkBasicReplica.API.Controllers
             var result = await _repository.Update(order);
             if (result == null) return BadRequest();
 
-            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderUpdated, result, userId);
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.OrderUpdated, result, userId);
             return NoContent();
         }
 
@@ -92,8 +93,11 @@ namespace BlikkBasicReplica.API.Controllers
             var order = await _repository.Get(id);
             if (order == null) return NotFound();
             if (order.ApplicationUserId != userId) return Unauthorized();
-            await _webhookService.SendHookToSubscribed(WebhookConstants.OrderDeleted, order, userId);
-            await _repository.Delete(order);
+            var result = await _repository.Delete(order);
+            if (result == null) return Conflict();
+
+            await _webhookService.SendHookToSubscribedHooks(WebhookEventNameConstants.OrderDeleted, order, userId);
+
             return NoContent();
         }
     }
